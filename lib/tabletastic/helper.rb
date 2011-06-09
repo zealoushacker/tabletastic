@@ -2,12 +2,16 @@ module Tabletastic
   module Helper
     # returns and outputs a table for the given active record collection
     def table_for(collection, *args, &block)
-      block = Tabletastic.default_table_block unless block_given?
-      klass = default_class_for(collection)
       options = args.extract_options!
-      initialize_html_options(options, klass)
-      result = capture { block.call(TableBuilder.new(collection, klass, self)) }
-      content_tag(:table, result, options[:html])
+      if !collection.empty?
+        block = Tabletastic.default_table_block unless block_given?
+        klass = default_class_for(collection)
+        initialize_html_options(options, klass)
+        result = capture { block.call(TableBuilder.new(collection, klass, self)) }
+        content_tag(:table, result, options[:html])
+      else
+        content_tag(:div, options[:empty_text] ? options[:empty_text] : 'No records')
+      end
     end
 
     private
