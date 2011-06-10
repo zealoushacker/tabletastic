@@ -10,7 +10,7 @@ module Tabletastic
         result = capture { block.call(TableBuilder.new(collection, klass, self)) }
         content_tag(:table, result, options[:html])
       else
-        content_tag(:div, options[:empty_text] ? options[:empty_text] : 'No records')
+        content_tag(:div, options[:empty_text] ? options[:empty_text] : 'No records', :class => 'no_records')
       end
     end
 
