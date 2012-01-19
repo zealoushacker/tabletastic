@@ -3,6 +3,7 @@ module Tabletastic
     # returns and outputs a table for the given active record collection
     def table_for(collection, *args, &block)
       options = args.extract_options!
+      # TODO: WRITE TESTS FOR THIS, ALEX. DUH.
       if !collection.empty?
         block = Tabletastic.default_table_block unless block_given?
         klass = default_class_for(collection)
